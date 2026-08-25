@@ -148,14 +148,12 @@ If you have a non-US layout (e.g., Russian) enabled, the password will be entere
 ## 🛠 Assembly and Installation (Flashing)
 
 ### Wiring Components
-To assemble the device, you will need an ESP32-S3 board, 3 momentary push buttons, and an addressable RGB LED (e.g., WS2812).
+To assemble the device, you will need an ESP32-S3 Mini board (RGB LED built-in), 2 momentary push button.
 
 | Component | ESP32-S3 Pin |
 | :--- | :--- |
-| Button 1 | GPIO 0 |
 | Button 2 | GPIO 6 |
 | Button 3 | GPIO 7 |
-| RGB LED (Data) | GPIO 21 |
 | Common Ground (GND) for buttons and LED | GPIO 4, GPIO 9 *(used as GND outputs in code)* |
 
 ### Flashing via PlatformIO (Recommended)
