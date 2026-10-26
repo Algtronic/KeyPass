@@ -120,13 +120,18 @@ String loadPassword(int index) {
 // ==========================================
 // ВЕБ-СЕРВЕР И CAPTIVE PORTAL
 // ==========================================
+
 void handleRoot() {
   String html = R"=====(
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Менеджер паролей</title>
 <style>
   body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #fff; padding: 20px; display: flex; justify-content: center; margin: 0;}
   .card { background: #16213e; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); width: 100%; max-width: 420px; }
+  .lang-bar { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 5px; }
+  .lang-btn { width: auto; padding: 5px 14px; background: transparent; border: 1px solid #e94560; color: #e94560; border-radius: 20px; font-size: 12px; font-weight: bold; }
+  .lang-btn:hover { background: #e9456044; }
+  .lang-btn.active { background: #e94560; color: #fff; }
   h2 { text-align: center; color: #e94560; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;}
   .group { margin-bottom: 20px; background: #0f3460; padding: 15px; border-radius: 8px; }
   .wifi-group { background: #e9456022; border: 1px solid #e94560; }
@@ -140,6 +145,60 @@ void handleRoot() {
   .note { font-size: 12px; color: #888; text-align: center; margin-top: 15px; line-height: 1.5; }
 </style>
 <script>
+  const I18N = {
+    ru: {
+      doc_title: "Менеджер паролей",
+      title: "Настройки ключа",
+      wifi_label: "🔒 ПАРОЛЬ ОТ ЭТОЙ WI-FI СЕТИ",
+      wifi_hint: "Минимум 8 символов.",
+      wifi_ph: "Оставьте пустым для сохранения текущего",
+      btn_label: "КНОПКА {n}",
+      btn_ph: "Введите новый или оставьте пустым",
+      gen: "Сгенерировать",
+      save: "Сохранить в память",
+      note: "⚠️ Текущие пароли скрыты."
+    },
+    en: {
+      doc_title: "Password Manager",
+      title: "Key Settings",
+      wifi_label: "🔒 PASSWORD FOR THIS WI-FI NETWORK",
+      wifi_hint: "Minimum 8 characters.",
+      wifi_ph: "Leave empty to keep the current one",
+      btn_label: "BUTTON {n}",
+      btn_ph: "Enter a new one or leave empty",
+      gen: "Generate",
+      save: "Save to memory",
+      note: "⚠️ Current passwords are hidden."
+    }
+  };
+
+  function getLang() {
+    try { return localStorage.getItem("lang") || "ru"; } catch (e) { return "ru"; }
+  }
+
+  function setLang(lang) {
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+    applyLang(lang);
+  }
+
+  function applyLang(lang) {
+    document.documentElement.lang = lang;
+    document.title = I18N[lang].doc_title;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      let txt = I18N[lang][el.getAttribute("data-i18n")];
+      if (txt === undefined) return;
+      const n = el.getAttribute("data-n");
+      if (n) txt = txt.replace("{n}", n);
+      el.textContent = txt;
+    });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
+      const ph = I18N[lang][el.getAttribute("data-i18n-ph")];
+      if (ph !== undefined) el.placeholder = ph;
+    });
+    document.getElementById("btn-ru").classList.toggle("active", lang === "ru");
+    document.getElementById("btn-en").classList.toggle("active", lang === "en");
+  }
+
   function g(id) {
     const c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~=";
     let p = ""; for(let i=0; i<16; i++) p += c[Math.floor(Math.random()*c.length)];
@@ -148,27 +207,33 @@ void handleRoot() {
 </script>
 </head><body>
 <div class="card">
-  <h2>Настройки ключа</h2>
+  <div class="lang-bar">
+    <button type="button" class="lang-btn" id="btn-ru" onclick="setLang('ru')">RU</button>
+    <button type="button" class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <h2 data-i18n="title">Настройки ключа</h2>
   <form action="/save" method="POST">
 
     <div class='group wifi-group'>
-      <label>🔒 ПАРОЛЬ ОТ ЭТОЙ WI-FI СЕТИ</label>
-      <input type='text' name='p0' id='p0' placeholder='Оставьте пустым для сохранения текущего'>
-      <div style="font-size:11px; color:#aaa; margin-top:-5px;">Минимум 8 символов.</div>
+      <label data-i18n="wifi_label">🔒 ПАРОЛЬ ОТ ЭТОЙ WI-FI СЕТИ</label>
+      <input type='text' name='p0' id='p0' data-i18n-ph="wifi_ph" placeholder='Оставьте пустым для сохранения текущего'>
+      <div style="font-size:11px; color:#aaa; margin-top:-5px;" data-i18n="wifi_hint">Минимум 8 символов.</div>
     </div>
 )=====";
 
   for (int i = 1; i <= 3; i++) {
-    html += "<div class='group'><label>КНОПКА " + String(i) + "</label>";
-    html += "<input type='text' name='p" + String(i) + "' id='p" + String(i) + "' placeholder='Введите новый или оставьте пустым'>";
-    html += "<button type='button' class='btn-gen' onclick=\"g('p" + String(i) + "')\">Сгенерировать</button></div>";
+    html += "<div class='group'><label data-i18n='btn_label' data-n='" + String(i) + "'>КНОПКА " + String(i) + "</label>";
+    html += "<input type='text' name='p" + String(i) + "' id='p" + String(i) + "' data-i18n-ph='btn_ph' placeholder='Введите новый или оставьте пустым'>";
+    html += "<button type='button' class='btn-gen' data-i18n='gen' onclick=\"g('p" + String(i) + "')\">Сгенерировать</button></div>";
   }
 
   html += R"=====(
-    <button type="submit" class="btn-save">Сохранить в память</button>
+    <button type="submit" class="btn-save" data-i18n="save">Сохранить в память</button>
   </form>
-  <div class="note">⚠️ Текущие пароли скрыты.</div>
-</div></body></html>
+  <div class="note" data-i18n="note">⚠️ Текущие пароли скрыты.</div>
+</div>
+<script>applyLang(getLang());</script>
+</body></html>
   )=====";
   server.send(200, "text/html", html);
 }
