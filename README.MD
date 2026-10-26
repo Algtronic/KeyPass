@@ -1,8 +1,9 @@
-***
+# 🔑 PassKey HID — Hardware Password Manager on ESP32 / PassKey HID — Аппаратный менеджер паролей на ESP32
 
-# 🔑 PassKey HID — Аппаратный менеджер паролей на ESP32
-
-**PassKey HID** — это персональный аппаратный менеджер паролей на базе микроконтроллера ESP32. Он хранит ваши пароли в зашифрованном виде (AES-256) и вводит их в компьютер как обычная USB-клавиатура. Устройство не требует установки драйверов и работает в любой операционной системе (Windows, macOS, Linux, Android). Репозиторий содержит исходники прошивки и .step файлы для печати и модификации.
+<details open>
+  <summary>🌐 <b>Русский (Описание)</b></summary>
+  
+  **PassKey HID** — это персональный аппаратный менеджер паролей на базе микроконтроллера ESP32. Он хранит ваши пароли в зашифрованном виде (AES-256) и вводит их в компьютер как обычная USB-клавиатура. Устройство не требует установки драйверов и работает в любой операционной системе (Windows, macOS, Linux, Android). Репозиторий содержит исходники прошивки и .step файлы для печати и модификации.
 <p align="center">
   <img src="Device.jpg" alt="Устройство в сборе">
 </p>
@@ -124,12 +125,13 @@
 
 ***
 ***
+</details>
 
-# 🇬🇧 English Version
+<br>
 
-# 🔑 PassKey HID — Hardware Password Manager on ESP32
-
-**PassKey HID** is a personal hardware password manager based on the ESP32 microcontroller. It stores your passwords in an encrypted form (AES-256) and types them into your computer as a standard USB keyboard. The device requires no drivers and works on any operating system (Windows, macOS, Linux, Android). Repository contains firmware source and .step files for printing and modification.
+<details>
+  <summary>🌐 <b>English (Description)</b></summary>
+  **PassKey HID** is a personal hardware password manager based on the ESP32 microcontroller. It stores your passwords in an encrypted form (AES-256) and types them into your computer as a standard USB keyboard. The device requires no drivers and works on any operating system (Windows, macOS, Linux, Android). Repository contains firmware source and .step files for printing and modification.
 <p align="center">
   <img src="Device.jpg" alt="Device as a whole">
 </p>
@@ -248,3 +250,7 @@ If you are afraid the device has fallen into the wrong hands, or you want to ret
 
 ## 📝 License
 This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. You are free to use, modify, and distribute the code, but any derivative works must be distributed under the same open-source license. The author is not responsible for data loss or password hacking. Use at your own risk.
+***
+***
+</details>
+
