@@ -3,9 +3,9 @@
 # 🔑 PassKey HID — Аппаратный менеджер паролей на ESP32
 
 **PassKey HID** — это персональный аппаратный менеджер паролей на базе микроконтроллера ESP32. Он хранит ваши пароли в зашифрованном виде (AES-256) и вводит их в компьютер как обычная USB-клавиатура. Устройство не требует установки драйверов и работает в любой операционной системе (Windows, macOS, Linux, Android). Репозиторий содержит исходники прошивки и файлы для печати.
-
+<div align="center">
 ![Устройство в сборе](Device.jpg)
-
+</div>
 ## 🌟 Возможности
 - **Эмуляция USB-клавиатуры:** Не требует драйверов, работает из коробки везде.
 - **Аппаратное шифрование:** Все пароли шифруются алгоритмом AES-256 (режим CTR). Ключи генерируются рандомно и хранятся в защищенной памяти контроллера.
@@ -128,10 +128,10 @@
 
 # 🔑 PassKey HID — Hardware Password Manager on ESP32
 
-**PassKey HID** is a personal hardware password manager based on the ESP32 microcontroller. It stores your passwords in an encrypted form (AES-256) and types them into your computer as a standard USB keyboard. The device requires no drivers and works on any operating system (Windows, macOS, Linux, Android). Repository consists of firmware source and .step files for printing and modification.
-
+**PassKey HID** is a personal hardware password manager based on the ESP32 microcontroller. It stores your passwords in an encrypted form (AES-256) and types them into your computer as a standard USB keyboard. The device requires no drivers and works on any operating system (Windows, macOS, Linux, Android). Repository contains firmware source and .step files for printing and modification.
+<div align="center">
 ![Device as a whole](Device.jpg)
-
+</div>
 ## 🌟 Features
 - **USB Keyboard Emulation:** Requires no drivers, works out of the box everywhere.
 - **Hardware Encryption:** All passwords are encrypted using the AES-256 algorithm (CTR mode). Keys are generated randomly and stored in the controller's protected memory.
