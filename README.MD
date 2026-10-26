@@ -1,6 +1,6 @@
 # 🔑 PassKey HID — Hardware Password Manager on ESP32 / PassKey HID — Аппаратный менеджер паролей на ESP32
 
-<details open>
+<details>
   <summary>🌐 <b>Русский (Описание)</b></summary>
   
   **PassKey HID** — это персональный аппаратный менеджер паролей на базе микроконтроллера ESP32. Он хранит ваши пароли в зашифрованном виде (AES-256) и вводит их в компьютер как обычная USB-клавиатура. Устройство не требует установки драйверов и работает в любой операционной системе (Windows, macOS, Linux, Android). Репозиторий содержит исходники прошивки и .step файлы для печати и модификации.
@@ -131,6 +131,8 @@
 
 <details>
   <summary>🌐 <b>English (Description)</b></summary>
+
+
   **PassKey HID** is a personal hardware password manager based on the ESP32 microcontroller. It stores your passwords in an encrypted form (AES-256) and types them into your computer as a standard USB keyboard. The device requires no drivers and works on any operating system (Windows, macOS, Linux, Android). Repository contains firmware source and .step files for printing and modification.
 <p align="center">
   <img src="Device.jpg" alt="Device as a whole">
